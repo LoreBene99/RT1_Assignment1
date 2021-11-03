@@ -133,11 +133,3 @@ def grab():
 		R.release()
 		drive(-20,2)
 		turn(-30,2)
-
-
-
-
-
-
-
-
