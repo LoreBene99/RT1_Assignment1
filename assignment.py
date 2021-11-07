@@ -29,7 +29,7 @@ def drive(speed, seconds):
     Function for setting a linear velocity
     
     Args: speed (int): the speed of the wheels
-		seconds (int): the time interval
+	seconds (int): the time interval
     """
     R.motors[0].m0.power = speed
     R.motors[0].m1.power = speed
