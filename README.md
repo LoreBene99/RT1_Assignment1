@@ -1,8 +1,30 @@
-Python Robotics Simulator
+First Assignment of Research Track 1 <img src="https://media.giphy.com/media/3o7bu9HvCRRp7MjpT2/giphy.gif/giphy.gif" height=60>
 ================================
-
+## Professor : Carmine Recchiuto, University of Genoa
 This is a simple, portable robot simulator developed by [Student Robotics](https://studentrobotics.org).
-Some of the arenas and the exercises have been modified for the Research Track I course
+Some of the arenas and the exercises have been modified for the Research Track I course.
+The main task of this assignment, given by the Professor Recchiuto, is to make the HOLONOMIC robot moves counterclockwisely in the virtual environment that he has presented. In this environment there are golden and silver tokens; the robot MUST avoid the golden tokens, that are regarded as WALLS, whereas it has to grab and release (thanks to specific
+commands) the silver ones, letting them behind itself.
+* ### Holonomic robot
+  <img height="35" width = "35" src="https://github.com/LoreBene99/RT_Assignment1/blob/main/sr/robot.png">
+
+* ### The golden token regarded as WALLS that the robot must avoid
+  ![alt text](https://github.com/LoreBene99/RT_Assignment1/blob/main/sr/token.png)
+
+* ### The silver token with which it interacts
+  ![alt text](https://github.com/LoreBene99/RT_Assignment1/blob/main/sr/token_silver.png)
+
+* ### Environment (Maze)
+  <img src="https://github.com/MatteoCarlone/my_Research_Track/blob/main/images/map.png" >
+In this maze the robot starts its ride on the top left corner and, like i said before, has to:
+* Moves counterclockwisely
+* Avoids golden tokens 
+* Grabs and releases behind it the silver tokens
+
+All this is made by several lines of codes thanks to which the robot completes the proposed tasks. This assignment was not so easy, since i had to cope with
+several problems that i will discuss. 
+
+
 
 Installing and running
 ----------------------
