@@ -29,7 +29,7 @@ def drive(speed, seconds):
     Function for setting a linear velocity
     
     Args: speed (int): the speed of the wheels
-	      seconds (int): the time interval
+	    seconds (int): the time interval
     """
     R.motors[0].m0.power = speed
     R.motors[0].m1.power = speed
@@ -194,11 +194,11 @@ def main():
 		dist_right_golden = find_golden_token_right()
 		dist_left_golden = find_golden_token_left()
 	    
-	    # The robot should avoid golden tokens and grab the silver ones, so if the robot is far from golden tokens 
-	    # and it's not close enough to the silver ones, it goes straight, thanks to the defined function drive().
-	    # The parameters are set in order to make the robot move fast.
-	    # We also introduce a threshold "s_th" in order to make the robot adjust properly his orientation toward the silver tokens
-	    # before getting close to them and then grabbing them. Moreover (thanks to s_th) the robot doesn't push the silver token without grabbing them
+	   		# The robot should avoid golden tokens and grab the silver ones, so if the robot is far from golden tokens 
+	   		# and it's not close enough to the silver ones, it goes straight, thanks to the defined function drive().
+	    	# The parameters are set in order to make the robot move fast.
+	    	# We also introduce a threshold "s_th" in order to make the robot adjust properly his orientation toward the silver tokens
+	    	# before getting close to them and then grabbing them. Moreover (thanks to s_th) the robot doesn't push the silver token without grabbing them
 	    
 		if (dist_silver > s_th and dist_golden > g_th) or (dist_silver == -1 and dist_golden > g_th):
 			print("Go!!")
