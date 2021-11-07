@@ -20,7 +20,7 @@ g_th = 1.0
 """ float: Threshold for the control of robot distance from the closest golden token """
 
 s_th = 1.5
-""" float: Threshold for the control of robot near to a silver token in order to start the grab routine """
+""" float: Threshold for the control of the robot near to a silver token in order to start the grab routine """
 
 
 #-----------------------------------------DEFINING FUNCTIONS-----------------------------------------------------------
@@ -139,6 +139,50 @@ def grab():
 		turn(-30,2)
 #######################################################################################################################
 
+def detect_walls(dist_left_golden, dist_right_golden):
+	"""
+	Function to detect the walls near the robot that avoid them
+	"""
+	print("There is a wall near me!!")
+
+	if (dist_left_golden > dist_right_golden):
+		print("Turn left a bit because the wall is on the right at this precise distance:" + str(dist_right_golden))
+		turn(-20, 0.2)
+			
+	elif (dist_left_golden < dist_right_golden):
+		print("Turn right a bit because the wall is on the left at this precise distance:" + str(dist_left_golden))
+		turn(20,0.2)
+			
+	else:
+		print("Similar distance from left and right golden token")
+		print("Distance of the wall on the left:" + str(dist_left_golden))
+		print("Distance of the wall on the right:" + str(dist_right_golden))
+#######################################################################################################################
+
+def adjust_grab(dist_silver,rot_y_silver):
+	"""
+	Function that makes the robot adjust his orientation toward the token
+	"""
+
+	print("I'm near to a silver token!")
+			
+	if (dist_silver < d_th):
+		print("Found it!!")
+		grab()
+		
+	elif -a_th <= rot_y_silver <= a_th: # if the robot is well aligned with the token, we go forward
+		print("Ah, that'll do.")
+		drive(35, 0.2)
+		
+	elif rot_y_silver < -a_th: # if the robot is not well aligned with the token, we move it on the left or on the right
+		print("Left a bit...")
+		turn(-8, 0.2)
+		
+	elif rot_y_silver > a_th:
+		print("Right a bit...")
+		turn(+8, 0.2)
+#######################################################################################################################
+
 def main():
 	while 1:
 		
@@ -150,63 +194,31 @@ def main():
 		dist_right_golden = find_golden_token_right()
 		dist_left_golden = find_golden_token_left()
 	    
-	    # The robot should avoid golden token and grab the silver ones, so if the robot is far from golden token 
+	    # The robot should avoid golden tokens and grab the silver ones, so if the robot is far from golden tokens 
 	    # and it's not close enough to the silver ones, it goes straight, thanks to the defined function drive().
 	    # The parameters are set in order to make the robot move fast.
-	    # We also introduce a threshold "s_th" in order to make the robot adjust properly his positioning towards the silver token
-	    # before getting close to them and then grabbing them. Moreover the robot doesn't push the silver token without grabbing them
+	    # We also introduce a threshold "s_th" in order to make the robot adjust properly his orientation toward the silver tokens
+	    # before getting close to them and then grabbing them. Moreover (thanks to s_th) the robot doesn't push the silver token without grabbing them
 	    
 		if (dist_silver > s_th and dist_golden > g_th) or (dist_silver == -1 and dist_golden > g_th):
 			print("Go!!")
 			drive(100,0.05)
 		
 		# The robot detect a silver token and get closer to it, changing its velocity and 
-		# always adjusting its positioning thanks to the elif commands
+		# always adjusting its orientation thanks to the elif commands put in the adjust_grab() function
 		
 		if (dist_silver < s_th) and (dist_silver != -1):
-			print("I'm near to a silver token!")
 		
 		# When the robot is near to a silver token, perfectly allineated, it will grab the silver one.
-			
-			if (dist_silver < d_th):
-				print("Found it!!")
-				grab()
 		
-			elif -a_th <= rot_y_silver <= a_th: # if the robot is well aligned with the token, we go forward
-				print("Ah, that'll do.")
-				drive(35, 0.2)
+			adjust_grab(dist_silver, rot_y_silver)
 		
-			elif rot_y_silver < -a_th: # if the robot is not well aligned with the token, we move it on the left or on the right
-				print("Left a bit...")
-				turn(-8, 0.2)
-		
-			elif rot_y_silver > a_th:
-				print("Right a bit...")
-				turn(+8, 0.2)
-		
-		# Of course we have to check the distance of the robot from the golden tokens, since they rapresents the "walls" and 
+		# Of course we have to check the distance of the robot from the golden tokens, since they represents the "walls" and 
 		# the robot must avoid them. The robot should also check the distance from the right golden token and from the left golden 
 		# so we can make it easily turns direction, in order to complete counterclockwisely the path in the environment
 		
 		if (dist_golden < g_th) and (dist_golden != -1):
-		
-			print("There is a wall near me!!")
-		
-			if (dist_left_golden > dist_right_golden):
-				print("Turn left a bit because the wall is on the right at this precise distance:" +str (dist_right_golden))
-				turn(-20, 0.2)
-			
-			elif (dist_left_golden < dist_right_golden):
-				print("Turn right a bit because the wall is on the left at this precise distance:" +str(dist_left_golden))
-				turn(20,0.2)
-			
-			else:
-				print("Similar distance from left and right golden token")
-				print("Distance of the wall on the left:" + str(dist_left_golden))
-				print("Distance of the wall on the right:" + str(dist_right_golden))
-				
-				
-		
+			detect_walls(dist_left_golden, dist_right_golden)
+#---------------------------------------------MAIN CALL-----------------------------------------------------------------------
 
-#--------------------------------------MAIN CALL-----------------------------------------------------------------------
 main()
