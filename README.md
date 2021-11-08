@@ -51,7 +51,7 @@ after entering in the directory
 
 ```bash
 
-$ python run.py assignment(name_file).py
+$ python run.py assignment.py
 
 ```
 Robot API
@@ -163,16 +163,15 @@ def turn(speed, seconds):
     R.motors[0].m1.power = 0
 ```
 ### find_silver_token():
-The robot can see all the the tokens around it in the map, in a field of view of 360 degrees and within a particular distance. This function checks all the tokens that the robot see thanks to the R.see() method and return the distance and the angle between the robot and the token.  
-
-The `find_silver_token()` function is used to study all the silver tokens that are around the robot. The function checks all the tokens that the robot, we can say, sees thanks to `R.see()` method. The function only takes the tokens that are closer than 3 (which is pretty close inside the enviroment) and inside the angle `φ`, which is `-70°<φ<70°`. Obviously, as long as we want only silver tokens, we want to have as `marker_type` `MARKER_TOKEN_SILVER`, because it's what it differentiates it from the golden ones.
+The robot can see all the the tokens around it in the map, in a field of view of 360 degrees and within a particular distance. This function checks all the tokens that the robot see thanks to the R.see() method and returns the distance and the angle between the robot and the closest silver token. This might create some problems since the silver token, after grabbing it and releasing it behind itself, will remain the closest silver token, so the robot will turn and grab it again. To avoid this problem, in order to make the robot goes directly to the next token, we can limit its field of view in a maximum range of 3 and inside a particular angle `φ`, which is -65°<`φ`<65°; then the robot will see the silver tokens only in front of it and will no longer grab the token behind it. 
 - Arguments 
   - None.
 - Returns
-  - Returns distance of the closest silver token and angle between the robot and the closest silver token (`dist`, `rot_y`).
+  - Returns distance of the closest silver token and the angle between the robot and the closest silver token [`dist`(-1 if no silver token is detected), `rot_y`(-1 if no silver token is detected)].
 - Code
 ```python
-dist=3
+def find_silver_token():
+    dist=3
     for token in R.see():
         if token.dist < dist and token.info.marker_type is MARKER_TOKEN_SILVER and -65<token.rot_y<65:
             dist=token.dist
@@ -182,4 +181,171 @@ dist=3
     else:
    	return dist, rot_y
 ```
+### find_golden_token():
+The `find_golden_token()` function has the same structure of the previous one (find_silver_token()). This function is very important since it is used to not let the robot crush against the golden tokens (walls) in front of it, so the robot can move properly in the maze. This time the we have an higher distance (100) in order to check where is the closest golden token and a restricted view inside a particular angle `φ`, which is -35°<`φ`<35° in order to have the robot checking the golden tokens in front it.
+- Arguments 
+  - None.
+- Returns
+  - Returns distance of the closest golden token and angle between the robot and the closest golden token [`dist`(-1 if no golden token is detected), `rot_y`(-1 if no golen token is detected)]..
+- Code
+```python
+def find_golden_token():
+    dist=100
+    for token in R.see():
+        if token.dist < dist and token.info.marker_type is MARKER_TOKEN_GOLD and -35<token.rot_y<35:
+            dist=token.dist
+	    rot_y=token.rot_y
+    if dist==100:
+	return -1, -1
+    else:
+   	return dist, rot_y
+```
+### find_golden_token_left(): 
+The `find_golden_token_left()` function is used to check the distance of the golden tokens on the left and we can use it with the function `find_golden_token_right()` in order to make the robot changes direction properly in the maze, turning itself in the critical turning points of the maze. We can check the golden boxes on the left by restricting the field of view within a particular angle, which now is `-110°<φ<-70°` (the angle is negative on the left).
+- Arguments 
+  - None.
+- Returns
+  - Returns distance of the closest golden token on the left [`dist`(-1 if no silver token is detected)].
+- Code
+```python
+def find_golden_token_left():
+    dist=100
+    for token in R.see():
+        if token.dist < dist and token.info.marker_type is MARKER_TOKEN_GOLD and -110<token.rot_y<-70:
+            dist=token.dist
+    if dist==100:
+	return -1
+    else:
+   	return dist
+```
+### find_golden_token_right(): 
+The `find_golden_token_right()` function is the same of the previous one. Thanks to this function the robot detects the distance of the golden token on the right. It only changes the angle which is `70°<φ<110°`(the angle is positive on the right).
+- Arguments 
+  - None.
+- Returns
+  - Returns distance of the closest golden token on the right (`dist`).
+- Code
+```python
+def find_golden_token_right():
+    dist=100
+    for token in R.see():
+        if token.dist < dist and token.info.marker_type is MARKER_TOKEN_GOLD and 75<token.rot_y<105:
+            dist=token.dist
+    if dist==100:
 
+```
+### grab():
+The function `grab()` was made to "clean" the main and insert the grab routine, made by the robot, inside a function. When the robot is close to a silver token, it will grab it and then release it always in the same way.
+- Arguments 
+  - None.
+- Returns
+  - None.
+- Code
+```python
+def grab():
+	if R.grab():
+		print("Gotcha!")
+		turn(30,2)
+		drive(20,2)
+		R.release()
+		drive(-20,2)
+		turn(-30,2)
+```
+### adjust_grab(dist_silver,rot_y_silver):
+This function is very important since the robot has to allign in the right way before getting closer to the silver token and then starting the grab routine. 
+- Arguments 
+  - rot_silver (float): angle between the robot and the closest silver token;
+  - dist_silver (float): distance from the closest silver token.
+- Returns
+  - None.
+- Code
+```python
+def adjust_grab(dist_silver, rot_y_silver):
+	print("I'm near to a silver token!")
+			
+		if (dist_silver < d_th):
+			print("Found it!!")
+			grab()
+		
+		elif -a_th <= rot_y_silver <= a_th: # if the robot is well aligned with the token, we go forward
+			print("Ah, that'll do.")
+			drive(35, 0.2)
+		
+		elif rot_y_silver < -a_th: # if the robot is not well aligned with the token, we move it on the left or on the right
+			print("Left a bit...")
+			turn(-8, 0.2)
+		
+		elif rot_y_silver > a_th:
+			print("Right a bit...")
+			turn(+8, 0.2)
+```
+### detect_walls(dist_left_golden, dist_right_golden):
+This is one of the main function in the entire code. This function is very important since it makes the robot turns and change direction in the map. The return values of find_golden_token_left and find_golden_token_right are the arguments of this function thanks to which the robot turns properly: when the robot is close to a wall it will computes the distance of the golden tokens on the left and the one of the golden tokens on the right. If the distance of the golden token on the left is higher than the distance of the golden tokens on the right the robot will turn on the left, otherwise it will turn on the right, until no golden tokens are detected in a threshold area g_th. Thus this function helps the robot changing its direction inside the environment correctly.
+- Arguments
+  - dist_left_golden (float): distance of the closest gloden token on the left of the robot;
+  - dist_right_golden (float): distance of the closest gloden token on the right of the robot; 
+- Returns
+  - None.
+- Code
+```python
+def detect_walls():
+	print("There is a wall near me!!")
+
+		if (dist_left_golden > dist_right_golden):
+			print("Turn left a bit because the wall is on the right at this precise distance:" + str(dist_right_golden))
+			turn(-20, 0.2)
+			
+		elif (dist_left_golden < dist_right_golden):
+			print("Turn right a bit because the wall is on the left at this precise distance:" + str(dist_left_golden))
+			turn(20,0.2)
+			
+		else:
+			print("Similar distance from left and right golden token")
+			print("Distance of the wall on the left:" + str(dist_left_golden))
+			print("Distance of the wall on the right:" + str(dist_right_golden))
+```
+
+## MAIN()
+The main function is the core of the project. In the main function there are all the functions that a previously described and developed and are all logically connected in order to make the robot moves around the environment, fulfilling all the requirements proposed by our Professor. Since we want the robot moves in loop endlessy inside the map, we have to put the instructions inside a while loop which loops endlessy, always updating the informations.
+This is the main code, in which all the commands i've done are explained:
+```python
+def main():
+	while 1:
+		
+		# In order to make the robot moves in an infinite cycle we use a while loop. Thanks to this while
+		# we also update every single time the information about the silver and golden tokens. 
+		
+		dist_silver, rot_y_silver = find_silver_token()
+		dist_golden, rot_y_golden = find_golden_token()
+		dist_right_golden = find_golden_token_right()
+		dist_left_golden = find_golden_token_left()
+	    
+		# The robot should avoid golden tokens and grab the silver ones, so if the robot is far from golden tokens 
+		# and it's not close enough to the silver ones, it goes straight, thanks to the defined function drive().
+		# The parameters are set in order to make the robot move fast.
+		# We also introduce a threshold "s_th" in order to make the robot adjust properly his orientation toward the silver tokens
+		# before getting close to them and then grabbing them. Moreover (thanks to s_th) the robot doesn't push the silver token without grabbing them
+	    
+		if (dist_silver > s_th and dist_golden > g_th) or (dist_silver == -1 and dist_golden > g_th):
+			print("Go!!")
+			drive(100,0.05)
+		
+		# The robot detect a silver token and get closer to it, changing its velocity and 
+		# always adjusting its orientation thanks to the elif commands put in the adjust_grab() function
+		
+		if (dist_silver < s_th) and (dist_silver != -1):
+		
+		# When the robot is near to a silver token, perfectly allineated, it will grab the silver one.
+		
+			adjust_grab(dist_silver, rot_y_silver)
+		
+		# Of course we have to check the distance of the robot from the golden tokens, since they represents the "walls" and 
+		# the robot must avoid them. The robot should also check the distance from the right golden token and from the left golden 
+		# so we can make it easily turns direction, in order to complete counterclockwisely the path in the environment
+		
+		if (dist_golden < g_th) and (dist_golden != -1):
+			detect_walls(dist_left_golden, dist_right_golden)
+```
+### NB: I've personally put the parameters in the fucntions, since i tested how they worked during several proofs testing the code 
+  
+   
