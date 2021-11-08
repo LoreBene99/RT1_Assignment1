@@ -5,17 +5,17 @@ This is a simple, portable robot simulator developed by [Student Robotics](https
 Some of the arenas and the exercises have been modified for the Research Track I course.
 The main task of this assignment, given by the Professor Recchiuto, is to make the HOLONOMIC robot moves counterclockwisely in the virtual environment that he has presented. In this environment there are golden and silver tokens; the robot MUST avoid the golden tokens, that are regarded as WALLS, whereas it has to grab and release (thanks to specific
 commands) the silver ones, letting them behind itself.
-* ### Holonomic robot
-  <img height="35" width = "35" src="https://github.com/LoreBene99/RT_Assignment1/blob/main/sr/robot.png">
+### Holonomic robot
+<img height="35" width = "35" src="https://github.com/LoreBene99/RT_Assignment1/blob/main/sr/robot.png">
 
-* ### The golden token regarded as WALLS that the robot must avoid
-  ![alt text](https://github.com/LoreBene99/RT_Assignment1/blob/main/sr/token.png)
+### The golden token regarded as WALLS that the robot must avoid
+![alt text](https://github.com/LoreBene99/RT_Assignment1/blob/main/sr/token.png)
 
-* ### The silver token with which it interacts
-  ![alt text](https://github.com/LoreBene99/RT_Assignment1/blob/main/sr/token_silver.png)
+### The silver token with which it interacts
+![alt text](https://github.com/LoreBene99/RT_Assignment1/blob/main/sr/token_silver.png)
 
-* ### Environment (Maze)
-  <img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/map.png" > 
+### Environment (Maze)
+<img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/map.png" > 
  
 In this maze the robot starts its ride on the top left corner and, like i said before, has to:
 * Moves counterclockwisely
@@ -129,12 +129,12 @@ We can achieve the aim of the project by using some functions that i have made s
 in the correct way, with the environment, trying to get over the problems i have faced, like, for example, make the robot change direction properly 
 in the turning points of the maze. Here there are:
 
-* ###Drive():
-  First of all the `drive()` function is used to make the robot moves in the maze. The speed of the motors are equals in order to make the robot goes straight.
-  The robot "drives" in the environment with a certain speed and for a certain interval of time. 
+### drive():
+First of all the `drive()` function is used to make the robot moves in the maze. The speed of the motors are equals in order to make the robot goes straight.
+The robot "drives" in the environment with a certain speed and for a certain interval of time. 
 - Arguments 
-  - `speed`, the amount of linear velocity that we want our robot to assume.
-  - `seconds`, the amount of seconds we want out robot to drive.
+  - `speed`: the linear velocity with which the robot moves.
+  - `seconds`: the interval of time in which the robot moves.
 - Returns
   - None.
 - Code
@@ -144,6 +144,42 @@ def drive(speed, seconds):
     R.motors[0].m1.power = speed
     time.sleep(seconds)
     R.motors[0].m0.power = 0
-    
-* ###Turn():
+    R.motors[0].m1.power = 0
+```
+### turn():
+Thanks to the function `turn()` the robot turns exactly in the spot in which it is, without having a linear velocity. It rotates on itself.
+- Arguments 
+  - `speed`: the angular velocity with which the robot rotates on itself.
+  - `seconds`: the interval of time in which the robot turns, rotating on itself.
+- Returns
+  - None.
+- Code
+```python
+def turn(speed, seconds):
+    R.motors[0].m0.power = speed
+    R.motors[0].m1.power = -speed
+    time.sleep(seconds)
+    R.motors[0].m0.power = 0
+    R.motors[0].m1.power = 0
+```
+### find_silver_token():
+The robot can see all the the tokens around it in the map, in a field of view of 360 degrees and within a particular distance. This function checks all the tokens that the robot see thanks to the R.see() method and return the distance and the angle between the robot and the token.  
+
+The `find_silver_token()` function is used to study all the silver tokens that are around the robot. The function checks all the tokens that the robot, we can say, sees thanks to `R.see()` method. The function only takes the tokens that are closer than 3 (which is pretty close inside the enviroment) and inside the angle `φ`, which is `-70°<φ<70°`. Obviously, as long as we want only silver tokens, we want to have as `marker_type` `MARKER_TOKEN_SILVER`, because it's what it differentiates it from the golden ones.
+- Arguments 
+  - None.
+- Returns
+  - Returns distance of the closest silver token and angle between the robot and the closest silver token (`dist`, `rot_y`).
+- Code
+```python
+dist=3
+    for token in R.see():
+        if token.dist < dist and token.info.marker_type is MARKER_TOKEN_SILVER and -65<token.rot_y<65:
+            dist=token.dist
+	    rot_y=token.rot_y
+    if dist==3:
+	return -1, -1
+    else:
+   	return dist, rot_y
+```
 
