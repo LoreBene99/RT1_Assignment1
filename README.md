@@ -346,6 +346,6 @@ def main():
 		if (dist_golden < g_th) and (dist_golden != -1):
 			detect_walls(dist_left_golden, dist_right_golden)
 ```
-### NB: I've personally put the parameters in the fucntions, since i tested how they worked during several proofs testing the code 
+#### NB: I've personally put the parameters in the functions, since i tested how they worked during several proofs testing the code 
   
    
