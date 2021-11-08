@@ -15,6 +15,7 @@ commands) the silver ones, letting them behind itself.
   ![alt text](https://github.com/LoreBene99/RT_Assignment1/blob/main/sr/token_silver.png)
 
 * ### Environment (Maze)
+  <img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/map.png" > 
  
 In this maze the robot starts its ride on the top left corner and, like i said before, has to:
 * Moves counterclockwisely
