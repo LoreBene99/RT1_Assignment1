@@ -183,6 +183,10 @@ def find_silver_token():
     else:
    	return dist, rot_y
 ```
+<p align="center">
+<img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/fov.png" width="300" height="300"> 
+</p>
+
 ### find_golden_token():
 The `find_golden_token()` function has the same structure of the previous one (find_silver_token()). This function is very important since it is used to not let the robot crush against the golden tokens (walls) in front of it, so the robot can move properly in the maze. This time the we have an higher distance (100) in order to check where is the closest golden token and a restricted view inside a particular angle `φ`, which is -35°<`φ`<35° in order to have the robot checking the golden tokens in front it.
 - Arguments 
@@ -202,6 +206,10 @@ def find_golden_token():
     else:
    	return dist, rot_y
 ```
+<p align="center">
+<img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/fov1.png" width="300" height="300"> 
+</p>
+
 ### find_golden_token_left(): 
 The `find_golden_token_left()` function is used to check the distance of the golden tokens on the left and we can use it with the function `find_golden_token_right()` in order to make the robot changes direction properly in the maze, turning itself in the critical turning points of the maze. We can check the golden boxes on the left by restricting the field of view within a particular angle, which now is `-110°<φ<-70°` (the angle is negative on the left).
 - Arguments 
@@ -236,6 +244,10 @@ def find_golden_token_right():
     if dist==100:
 
 ```
+<p align="center">
+<img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/rl.png" width="300" height="300"> 
+</p>
+
 ### grab():
 The function `grab()` was made to "clean" the main and insert the grab routine, made by the robot, inside a function. When the robot is close to a silver token, it will grab it and then release it always in the same way.
 - Arguments 
@@ -348,6 +360,16 @@ def main():
 		if (dist_golden < g_th) and (dist_golden != -1):
 			detect_walls(dist_left_golden, dist_right_golden)
 ```
-#### NB: I've personally put the parameters in the functions, since i tested how they worked during several proofs testing the code 
-  
+#### NB: I've personally put the parameters in the functions, since i tested how they worked during several proofs testing the code
+#### IMPORTANT!: The images don't have the proper scale, of course d=3 e d=100 have a huge difference, but you can not notice it very well
+
+Conclusions
+-----------
+This project was very helpful since i practiced a lot with python coding. Furthermore i learned a lot about github, a platform that was an unknown to me since i've started this course, and how important it can be. I'm very satisfied about the time i spent on this project because, even if the overall result can be much better, i've put together different acquaintances, be they IT, logical or geometric (even simple things) in order to make the robot move in the right way in the environment. 
+This is a speeded up video that i recorded from my screen just to show how the robot moves:
+
+https://user-images.githubusercontent.com/91314586/140918228-6ee706e0-ecd4-4978-b335-035736894618.mp4
+
+
+
    
