@@ -38,14 +38,16 @@ PyPyBox2D and PyYAML are more forgiving, and should install just fine using `pip
 
 Once the dependencies are installed, simply run the `test.py` script to test out the simulator.
 
-### Troubleshooting
+Troubleshooting
+---------------
 When running `python run.py <file>`, there might be an error: `ImportError: No module named 'robot'`. This may be due to a conflict between sr.tools and sr.robot. To resolve, symlink simulator/sr/robot to the location of sr.tools.
 On Ubuntu, this can be accomplished by:
 * Find the location of srtools: `pip show sr.tools`
 * Get the location. In my case this was `/usr/local/lib/python2.7/dist-packages`
 * Create symlink: `ln -s path/to/simulator/sr/robot /usr/local/lib/python2.7/dist-packages/sr/`
 
-### Running the programm
+Running the programm
+--------------------
 In order to run the scripts in the simulator and make the game starts you have to insert this command on the shell,
 after entering in the directory
 
