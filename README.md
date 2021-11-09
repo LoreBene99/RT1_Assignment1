@@ -265,6 +265,10 @@ def grab():
 		drive(-20,2)
 		turn(-30,2)
 ```
+<p align="center">
+ <img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/grab.gif" width="250" height="200">
+</p>
+
 ### adjust_grab(dist_silver,rot_y_silver):
 This function is very important since the robot has to allign in the right way before getting closer to the silver token and then starting the grab routine. 
 - Arguments 
@@ -318,6 +322,9 @@ def detect_walls():
 			print("Distance of the wall on the left:" + str(dist_left_golden))
 			print("Distance of the wall on the right:" + str(dist_right_golden))
 ```
+<p align="center">
+ <img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/wall.gif" width="250" height="200">
+</p>
 
 ## MAIN()
 The main function is the core of the project. In the main function there are all the functions that a previously described and developed and are all logically connected in order to make the robot moves around the environment, fulfilling all the requirements proposed by our Professor. Since we want the robot moves in loop endlessy inside the map, we have to put the instructions inside a while loop which loops endlessy, always updating the informations.
@@ -369,6 +376,9 @@ This project was very helpful since i practiced a lot with python coding. Furthe
 This is a speeded up video that i recorded from my screen just to show how the robot moves:
 
 https://user-images.githubusercontent.com/91314586/140918228-6ee706e0-ecd4-4978-b335-035736894618.mp4
+
+Possible Improvements
+---------------------
 
 
 
