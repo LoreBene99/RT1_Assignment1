@@ -384,7 +384,7 @@ This is a flowchart that perfectly described how the robot behaves inside the en
 <img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/flowchart.jpeg" width="1200" height="800"> 
 </p>
 
-#### WARNING!: There is an END because the robot stop its moving when the left and the right distance from the wall is similar (this is a particular case). Checking the loops i noticed that this problem happens very rarely, but i wanted to specify it anyway. Of course this problem can be avoided and indeed is one of the main points on the possible improvements to do.
+#### WARNING!: There is an END because the robot stop its moving when the left and the right distance from the wall are similar (this is a particular case). Checking the loops i noticed that this problem happens very rarely, but i wanted to specify it anyway. Of course this problem can be avoided and indeed is one of the main points on the possible improvements to do.
 
 Possible Improvements
 ---------------------
