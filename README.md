@@ -388,6 +388,16 @@ This is a flowchart that perfectly described how the robot behaves inside the en
 
 Possible Improvements
 ---------------------
+In this section i briefly explain some of ideas that came up to my mind in order to improve this project and make it works better. First of all, as i said, i'm satisfied with the work i've done, learning things about python, github, reasoning with a collegue, reasoning on both geometrical and IT stuffs etc. 
+Of course the code i've made it's not so hard to understand and it is based on a few simple concepts that have made it possible to satisfy Professor's requirements. The robot can have several loops. But:
+* The robot will stop when the distances from both right and left golden tokens are similar. As my collegue @andreamanera suggests, in order to avoid it from stopping we can       make the robot turn a little bit on the left (or right, as you prefer), giving it the proper amount of rotation in order to change the length parameters just enough to make     the robot have different distances from the walls, when this situation occurs. As it stand, the robot will properly turns thanks to the defined functions and to the precise     commands i put.
+
+* The robot changes direction only when it faces a wall (golden tokens). This is not so "clean" to see, indeed it will be better if the robot follows always a regular path, not   going on "zig zag"; this would be awesome since the robot always put the silver tokens behind it, risking to put them closer to the golden tokens. In fact, if it happens, the   the robot will have some problems on taking them because:
+	- Silver tokens are too close to the golden tokens
+	- Robot can get so much close to the golden tokens.
+  
+  This would probably lead to a stall. 
+
 
 
 
