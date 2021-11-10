@@ -22,7 +22,7 @@ In this maze the robot starts its ride on the top left corner and, like i said b
 * Avoids golden tokens 
 * Grabs and releases behind it the silver tokens
 
-All this is made by several lines of codes thanks to which the robot completes the proposed tasks. This assignment was not so easy, since i had to cope with
+All this is made by several lines of code thanks to which the robot completes the proposed tasks. This assignment was not so easy, since i had to cope with
 several problems that i will discuss. 
 
 
@@ -188,7 +188,7 @@ def find_silver_token():
 </p>
 
 ### find_golden_token():
-The `find_golden_token()` function has the same structure of the previous one (find_silver_token()). This function is very important since it is used to not let the robot crush against the golden tokens (walls) in front of it, so the robot can move properly in the maze. This time the we have an higher distance (100) in order to check where is the closest golden token and a restricted view inside a particular angle `φ`, which is -35°<`φ`<35° in order to have the robot checking the golden tokens in front it.
+The `find_golden_token()` function has the same structure of the previous one (find_silver_token()). This function is very important since it is used to not let the robot crush against the golden tokens (walls) in front of it, so the robot can move properly in the maze. This time we have an higher distance (100) in order to check where is the closest golden token and a restricted view inside a particular angle `φ`, which is -35°<`φ`<35° in order to have the robot checking the golden tokens in front it.
 - Arguments 
   - None.
 - Returns
@@ -270,7 +270,7 @@ def grab():
 </p>
 
 ### adjust_grab(dist_silver,rot_y_silver):
-This function is very important since the robot has to allign in the right way before getting closer to the silver token and then starting the grab routine. 
+This function is very important since the robot has to allign in the right way toward the silver token, before getting closer to it and then starting the grab routine. 
 - Arguments 
   - rot_silver (float): angle between the robot and the closest silver token;
   - dist_silver (float): distance from the closest silver token.
@@ -298,7 +298,7 @@ def adjust_grab(dist_silver, rot_y_silver):
 			turn(+8, 0.2)
 ```
 ### detect_walls(dist_left_golden, dist_right_golden):
-This is one of the main function in the entire code. This function is very important since it makes the robot turns and change direction in the map. The return values of find_golden_token_left and find_golden_token_right are the arguments of this function thanks to which the robot turns properly: when the robot is close to a wall it will computes the distance of the golden tokens on the left and the one of the golden tokens on the right. If the distance of the golden token on the left is higher than the distance of the golden tokens on the right the robot will turn on the left, otherwise it will turn on the right, until no golden tokens are detected in a threshold area g_th. Thus this function helps the robot changing its direction inside the environment correctly.
+This is one of the main function in the entire code. This function is very important since it makes the robot turns and changes direction in the map. The return values of find_golden_token_left() and find_golden_token_right() are the arguments of this function thanks to which the robot turns properly: when the robot is close to a wall, it will computes the distance of the golden tokens on the left and the one of the golden tokens on the right. If the distance of the golden token on the left is higher than the distance of the golden tokens on the right, the robot will turn on the left, otherwise it will turn on the right, until no golden tokens are detected in a threshold area g_th. Thus this function helps the robot changing its direction inside the environment correctly.
 - Arguments
   - dist_left_golden (float): distance of the closest gloden token on the left of the robot;
   - dist_right_golden (float): distance of the closest gloden token on the right of the robot; 
