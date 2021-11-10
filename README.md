@@ -249,7 +249,7 @@ def find_golden_token_right():
 </p>
 
 ### grab():
-The function `grab()` was made to "clean" the main and insert the grab routine, made by the robot, inside a function. When the robot is close to a silver token, it will grab it and then release it always in the same way.
+The function `grab()` was made to "clean" the main and insert the grab routine, made by the robot, inside a function. When the robot is close to a silver token, it will grab it and then release it always in the same way; then it will return to its origin position.
 - Arguments 
   - None.
 - Returns
