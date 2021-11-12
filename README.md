@@ -210,6 +210,22 @@ def find_golden_token():
 <img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/fov1.png" width="300" height="300"> 
 </p>
 
+### find_golden_token_right(): 
+The `find_golden_token_right()` function is the same of the previous one. Thanks to this function the robot detects the distance of the golden token on the right. It only changes the angle which is `70°<φ<110°`(the angle is positive on the right).
+- Arguments 
+  - None.
+- Returns
+  - Returns distance of the closest golden token on the right (`dist`).
+- Code
+```python
+def find_golden_token_right():
+    dist=100
+    for token in R.see():
+        if token.dist < dist and token.info.marker_type is MARKER_TOKEN_GOLD and 70<token.rot_y<110:
+            dist=token.dist
+    if dist==100:
+
+```
 ### find_golden_token_left(): 
 The `find_golden_token_left()` function is used to check the distance of the golden tokens on the left and we can use it with the function `find_golden_token_right()` in order to make the robot changes direction properly in the maze, turning itself in the critical turning points of the maze. We can check the golden boxes on the left by restricting the field of view within a particular angle, which now is `-110°<φ<-70°` (the angle is negative on the left).
 - Arguments 
@@ -227,22 +243,6 @@ def find_golden_token_left():
 	return -1
     else:
    	return dist
-```
-### find_golden_token_right(): 
-The `find_golden_token_right()` function is the same of the previous one. Thanks to this function the robot detects the distance of the golden token on the right. It only changes the angle which is `70°<φ<110°`(the angle is positive on the right).
-- Arguments 
-  - None.
-- Returns
-  - Returns distance of the closest golden token on the right (`dist`).
-- Code
-```python
-def find_golden_token_right():
-    dist=100
-    for token in R.see():
-        if token.dist < dist and token.info.marker_type is MARKER_TOKEN_GOLD and 70<token.rot_y<110:
-            dist=token.dist
-    if dist==100:
-
 ```
 <p align="center">
 <img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/rl.png" width="300" height="300"> 
