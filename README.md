@@ -398,7 +398,7 @@ Of course the code i've made it's not so hard to understand and it is based on a
   
   This would probably lead to a stall. 
   
-## NOTE: the code was thought and discussed with the help of my colleague @andreamanera
+#### NOTE: the code was thought and discussed with the help of my colleague @andreamanera
 
 
    
