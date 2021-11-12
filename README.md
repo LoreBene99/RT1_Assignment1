@@ -260,9 +260,9 @@ def grab():
 	if R.grab():
 		print("Gotcha!")
 		turn(30,2)
-		drive(20,2)
+		drive(20,1)
 		R.release()
-		drive(-20,2)
+		drive(-20,1)
 		turn(-30,2)
 ```
 <p align="center">
