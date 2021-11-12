@@ -269,34 +269,6 @@ def grab():
  <img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/grab.gif" width="250" height="200">
 </p>
 
-### adjust_grab(dist_silver,rot_y_silver):
-This function is very important since the robot has to allign in the right way toward the silver token, before getting closer to it and then starting the grab routine. 
-- Arguments 
-  - rot_silver (float): angle between the robot and the closest silver token;
-  - dist_silver (float): distance from the closest silver token.
-- Returns
-  - None.
-- Code
-```python
-def adjust_grab(dist_silver, rot_y_silver):
-	print("I'm near to a silver token!")
-			
-		if (dist_silver < d_th):
-			print("Found it!!")
-			grab()
-		
-		elif -a_th <= rot_y_silver <= a_th: # if the robot is well aligned with the token, we go forward
-			print("Ah, that'll do.")
-			drive(35, 0.2)
-		
-		elif rot_y_silver < -a_th: # if the robot is not well aligned with the token, we move it on the left or on the right
-			print("Left a bit...")
-			turn(-8, 0.2)
-		
-		elif rot_y_silver > a_th:
-			print("Right a bit...")
-			turn(+8, 0.2)
-```
 ### detect_walls(dist_left_golden, dist_right_golden):
 This is one of the main function in the entire code. This function is very important since it makes the robot turns and changes direction in the map. The return values of find_golden_token_left() and find_golden_token_right() are the arguments of this function thanks to which the robot turns properly: when the robot is close to a wall, it will computes the distance of the golden tokens on the left and the one of the golden tokens on the right. If the distance of the golden token on the left is higher than the distance of the golden tokens on the right, the robot will turn on the left, otherwise it will turn on the right, until no golden tokens are detected in a threshold area g_th. Thus this function helps the robot changing its direction inside the environment correctly.
 - Arguments
@@ -325,6 +297,35 @@ def detect_walls():
 <p align="center">
  <img src="https://github.com/LoreBene99/RT_Assignment1/blob/main/images/wall.gif" width="250" height="200">
 </p>
+
+### adjust_grab(dist_silver,rot_y_silver):
+This function is very important since the robot has to allign in the right way toward the silver token, before getting closer to it and then starting the grab routine. 
+- Arguments 
+  - rot_silver (float): angle between the robot and the closest silver token;
+  - dist_silver (float): distance from the closest silver token.
+- Returns
+  - None.
+- Code
+```python
+def adjust_grab(dist_silver, rot_y_silver):
+	print("I'm near to a silver token!")
+			
+		if (dist_silver < d_th):
+			print("Found it!!")
+			grab()
+		
+		elif -a_th <= rot_y_silver <= a_th: # if the robot is well aligned with the token, we go forward
+			print("Ah, that'll do.")
+			drive(35, 0.2)
+		
+		elif rot_y_silver < -a_th: # if the robot is not well aligned with the token, we move it on the left or on the right
+			print("Left a bit...")
+			turn(-8, 0.2)
+		
+		elif rot_y_silver > a_th:
+			print("Right a bit...")
+			turn(+8, 0.2)
+```
 
 ## MAIN()
 The main function is the core of the project. In the main function there are all the functions that a previously described and developed and are all logically connected in order to make the robot moves around the environment, fulfilling all the requirements proposed by our Professor. Since we want the robot moves in loop endlessy inside the map, we have to put the instructions inside a while loop which loops endlessy, always updating the informations.
