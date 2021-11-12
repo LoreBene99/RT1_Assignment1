@@ -239,7 +239,7 @@ The `find_golden_token_right()` function is the same of the previous one. Thanks
 def find_golden_token_right():
     dist=100
     for token in R.see():
-        if token.dist < dist and token.info.marker_type is MARKER_TOKEN_GOLD and 75<token.rot_y<105:
+        if token.dist < dist and token.info.marker_type is MARKER_TOKEN_GOLD and 70<token.rot_y<110:
             dist=token.dist
     if dist==100:
 
@@ -397,8 +397,8 @@ Of course the code i've made it's not so hard to understand and it is based on a
 	- Robot can get so much close to the golden tokens.
   
   This would probably lead to a stall. 
-
-
+  
+## NOTE: the code was thought and discussed with the help of my colleague @andreamanera
 
 
    
