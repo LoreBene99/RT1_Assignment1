@@ -3,7 +3,7 @@ First Assignment of Research Track 1 <img src="https://media.giphy.com/media/3o7
 ## Professor : Carmine Recchiuto, University of Genoa
 This is a simple, portable robot simulator developed by [Student Robotics](https://studentrobotics.org).
 Some of the arenas and the exercises have been modified for the Research Track I course.
-The main task of this assignment, given by the Professor Recchiuto, is to make the HOLONOMIC robot moves counterclockwisely in the virtual environment that he has presented. In this environment there are golden and silver tokens; the robot MUST avoid the golden tokens, that are regarded as WALLS, whereas it has to grab and release (thanks to specific
+The main task of this assignment, given by the professor Recchiuto, is to make the HOLONOMIC robot moves counterclockwisely in the virtual environment that he has presented. In this environment there are golden and silver tokens; the robot MUST avoid the golden tokens, that are regarded as WALLS, whereas it has to grab and release (thanks to specific
 commands) the silver ones, letting them behind itself.
 ### Holonomic robot:
 <img height="35" width = "35" src="https://github.com/LoreBene99/RT_Assignment1/blob/main/sr/robot.png">
