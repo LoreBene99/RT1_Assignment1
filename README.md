@@ -53,7 +53,7 @@ after entering in the directory
 
 ```bash
 
-$ python run.py assignment.py
+$ python2 run.py assignment.py
 
 ```
 Robot API
